@@ -8,7 +8,7 @@ const generateMarkdown = require("./utils/generateMarkdown.js");
 const questions = [
   {
     type: "input",
-    name: "repoName",
+    name: "title",
     message: `What is the project's name?`,
     validate: (answer) => {
       if (!answer) {
@@ -51,15 +51,23 @@ const questions = [
   },
   {
     type: "list",
-    name: "liscense",
+    name: "license",
     choices: [
+      "None",
       "MIT License",
       "Mozilla Public License 2.0",
       "GNU AGPLv3",
       "GNU GPLv3",
       "GNU LGPLv3",
     ],
+    validate: (answer) => {
+      if (answer.length > 1) {
+        return console.log("Only one answer allowed!");
+      }
+      return true;
+    },
   },
+
   {
     type: "input",
     name: "tests",
@@ -68,13 +76,15 @@ const questions = [
 ];
 
 // TODO: Create a function to write README file
-// function writeToFile("README.md", data, err) {}
+function writeToFile(fileName, data) {}
 
 // TODO: Create a function to initialize app
 function init() {
-  const data = inquirer
-    .prompt(questions)
-    .then((response) => console.log(response));
+  const data = inquirer.prompt(questions).then((response) => {
+    console.log(response);
+    const markdown = generateMarkdown(response);
+    console.log(markdown);
+  });
 }
 
 // Function call to initialize app

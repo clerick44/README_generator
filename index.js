@@ -8,6 +8,28 @@ const generateMarkdown = require("./utils/generateMarkdown.js");
 const questions = [
   {
     type: "input",
+    name: "userName",
+    message: `what is your git username?`,
+    validate: (answer) => {
+      if (!answer) {
+        return console.log("A username is required for your project!");
+      }
+      return true;
+    },
+  },
+  {
+    type: "input",
+    name: "email",
+    message: `What is contact e-mail?`,
+    validate: (answer) => {
+      if (!answer) {
+        return console.log("An email is required for your project!");
+      }
+      return true;
+    },
+  },
+  {
+    type: "input",
     name: "title",
     message: `What is the project's name?`,
     validate: (answer) => {
@@ -60,12 +82,6 @@ const questions = [
       "GNU GPLv3",
       "GNU LGPLv3",
     ],
-    validate: (answer) => {
-      if (answer.length > 1) {
-        return console.log("Only one answer allowed!");
-      }
-      return true;
-    },
   },
 
   {
@@ -76,15 +92,24 @@ const questions = [
 ];
 
 // TODO: Create a function to write README file
-function writeToFile(fileName, data) {}
+async function writeToFile(fileName, data) {}
 
 // TODO: Create a function to initialize app
-function init() {
-  const data = inquirer.prompt(questions).then((response) => {
+async function init() {
+  try {
+    const response = await inquirer.prompt(questions);
     console.log(response);
+    console.log("here");
+
     const markdown = generateMarkdown(response);
     console.log(markdown);
-  });
+
+    fs.writeFile("ExampleREADME.md", markdown, (err) =>
+      err ? console.log(err) : console.log("Success!")
+    );
+  } catch (err) {
+    console.log(err);
+  }
 }
 
 // Function call to initialize app

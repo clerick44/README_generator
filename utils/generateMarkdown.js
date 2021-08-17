@@ -1,22 +1,41 @@
-// const license = response.license;
-// console.log(license);
-// TODO: Create a function that returns a license badge based on which license is passed in
-// If there is no license, return an empty string
-function renderLicenseBadge(license) {}
+//Generates link to license badge
+function renderLicenseBadge(response) {
+  let license = response.license;
+  switch (license) {
+    case "None":
+      licenceBadgeUrl = "";
+      break;
+    case "MIT License":
+      licenceBadgeUrl =
+        "[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)";
+      break;
+    case "Mozilla Public License 2.0":
+      licenceBadgeUrl =
+        "[![License: Open Data Commons Attribution](https://img.shields.io/badge/License-ODC_BY-brightgreen.svg)](https://opendatacommons.org/licenses/by/)";
+      break;
+    case "GNU AGPLv3":
+      licenceBadgeUrl =
+        "[![License: AGPL v3](https://img.shields.io/badge/License-AGPL%20v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)";
+      break;
+    case "GNU GPLv3":
+      licenceBadgeUrl =
+        "[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)";
+      break;
+    case "GNU LGPLv3":
+      licenceBadgeUrl =
+        "[![License: LGPL v3](https://img.shields.io/badge/License-LGPL%20v3-blue.svg)](https://www.gnu.org/licenses/lgpl-3.0)";
+      break;
+  }
+}
 
-// TODO: Create a function that returns the license link
-// If there is no license, return an empty string
-function renderLicenseLink(license) {}
-
-// TODO: Create a function that returns the license section of README
-// If there is no license, return an empty string
-function renderLicenseSection(license) {}
-
-// TODO: Create a function to generate markdown for README
+//Generates README text calls license badge builder first
 function generateMarkdown(response) {
-  return `# ${response.title}
+  renderLicenseBadge(response);
+  console.log(licenceBadgeUrl);
 
-  ## Description
+  return `# ${response.title}          ${licenceBadgeUrl}
+
+  ## Description                 
   ${response.repoDesc}
 
 ## Table of Contents (Optional)
@@ -33,7 +52,7 @@ ${response.installation}
 ${response.usage}
 
 ## License
-License text here
+${response.license}
 
 ## Contributing
 ${response.credits}
@@ -41,7 +60,11 @@ ${response.credits}
 ## Tests
 ${response.tests}
 
-## Questions`;
+## Questions
+If you have any questions please reach out at <${response.email}>
+
+visit my Github profile at [${response.userName}](https://github.com/${response.userName})
+`;
 }
 
 module.exports = generateMarkdown;

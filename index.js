@@ -1,10 +1,10 @@
-// TODO: Include packages needed for this application
+// Includes packages needed for this application
 const inquirer = require("inquirer");
 const fs = require("fs");
 
 const generateMarkdown = require("./utils/generateMarkdown.js");
 
-// TODO: Create an array of questions for user input
+// Questions for user input
 const questions = [
   {
     type: "input",
@@ -42,7 +42,7 @@ const questions = [
   {
     type: "input",
     name: "repoDesc",
-    message: `Give a "what, why and how" desciption of this project.`,
+    message: `Give a desciption of this project.`,
     validate: (answer) => {
       if (!answer) {
         return console.log("A description is required for your project!");
@@ -91,21 +91,18 @@ const questions = [
   },
 ];
 
-// TODO: Create a function to write README file
-async function writeToFile(fileName, data) {}
-
-// TODO: Create a function to initialize app
+// Initializes app
 async function init() {
   try {
+    //Uses Inquirer to prompt user with questions and stores answers in response const
     const response = await inquirer.prompt(questions);
-    console.log(response);
-    console.log("here");
 
+    //Calls function in generateMarkdown.js to build markdown and stores in markdown const
     const markdown = generateMarkdown(response);
-    console.log(markdown);
 
+    //Writes generated markdown to file
     fs.writeFile("ExampleREADME.md", markdown, (err) =>
-      err ? console.log(err) : console.log("Success!")
+      err ? console.log(err) : console.log("README Generated!")
     );
   } catch (err) {
     console.log(err);
@@ -113,5 +110,4 @@ async function init() {
 }
 
 // Function call to initialize app
-
 init();

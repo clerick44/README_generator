@@ -31,15 +31,13 @@ function renderLicenseBadge(response) {
 //Generates README text calls license badge builder first
 function generateMarkdown(response) {
   renderLicenseBadge(response);
-  console.log(licenceBadgeUrl);
 
   return `# ${response.title}          ${licenceBadgeUrl}
 
-  ## Description                 
+## Description                 
   ${response.repoDesc}
 
-## Table of Contents (Optional)
-If your README is long, add a table of contents to make it easy for users to find what they need.
+## Table of Contents
 - [Installation](#installation)
 - [Usage](#usage)
 - [Credits](#credits)
